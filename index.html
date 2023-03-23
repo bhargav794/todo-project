@@ -8,14 +8,25 @@
     <title>Document</title>
 </head>
 <body>
-    <div>Todo list</div>
+    <div class="write" id="form">
 
-    <form>
-        <input type = text id= "txt" class="todoText" name="todo">
-        <button type="submit" id="btnn" class="btn" onclick="">Add</button>
+    <h3>Todo list</h3>
+
+    <form id = "todo-form">
+        <input type = text id= "txt" class="todo-Text" name="todo" placeholder="type here" value="sample text">
+        </div>
     </form>
-    
-
+</div>
+<br>
+<div id="todoList">
+    <ul class="myList">
+        <div class="todo">
+            <li></li>
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button>
+        </div>
+    </ul>
+</div>
 
     <script src="app.js"></script>
 </body>
