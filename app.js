@@ -1,11 +1,14 @@
-var btns = document.getElementById('btnn');
-btns.addEventListener("click", myfunc() );
+var todoTxt = document.querySelector('#txt');
+var appedndList = document.querySelector('.todoList');
+var uList = document.querySelector('.myList');
+var todoDiv = document.querySelector('.todo');
+todoTxt.addEventListener("click", myfunc() );
 
 function myfunc()  {
-    let adiv = document.createElement('p');
-    let atxt = document.getElementById('txt').value;
-    let t = document.createTextNode(atxt);
-    document.appendChild(t);
-    document.appendChild(adiv);
+
+    let adiv = document.createElement('li');
+    adiv.innerText = todoTxt.value;
+    
+     todoDiv.appendChild(adiv);
 
 }
