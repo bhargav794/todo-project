@@ -54,7 +54,9 @@ let addFunc = (e) => {
 addBtn.addEventListener("click",addFunc);
 
 
-
+edFunc = (itemText) => {
+    
+}
 
 
  delFunc = (itemText) =>{
