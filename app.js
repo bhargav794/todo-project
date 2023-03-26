@@ -4,12 +4,12 @@ let uList = document.querySelector('.myList');
 let todoDiv = document.querySelector('.todo');
 let addBtn = document.querySelector('#addBtn');
 
-var i = new Date().getTime();
+var i = new Date().getTime()
 
 //Event listener to add the list when pressed on 'Enter' 
 todoTxt.addEventListener('keydown', (e) =>{
     if(e.keyCode === 13){
-        addFunc();
+        addFunc(e);
         todoTxt.value = "";
     }
 })
@@ -24,27 +24,27 @@ let addFunc = (e) => {
          let inpTxt = document.createElement('li');
          inpTxt.innerText = todoTxtVal;
          todoDiv.appendChild(inpTxt);
-         inpTxt.id = "txt" + i;
+         inpTxt.id = "txt" + i++; // remember this way of setting an attribute
          todoTxt.value = "";
     
          //code for creating and adding id to the edit button 
          let editBtn =document.createElement('button');
          editBtn.innerHTML= 'edit';
-         editBtn.id = "ed" + i;
-         inpTxt.appendChild(editBtn);
+         editBtn.id = "ed" + i++;
+         todoDiv.appendChild(editBtn);
 
          editBtn.addEventListener("click",() =>{
-            edFunc(inpTxt);
+            edFunc(inpTxt,editBtn,deleteBtn);
          })
     
          //code for creating and adding class to the edit button 
          var deleteBtn =document.createElement('button');
          deleteBtn.innerHTML= 'Delete';
-         deleteBtn.id = "del" + i;
-         inpTxt.appendChild(deleteBtn);  
+         deleteBtn.id = "del" + i++;
+         todoDiv.appendChild(deleteBtn);  
 
         deleteBtn.addEventListener("click", () =>{
-            delFunc(inpTxt)
+            delFunc(inpTxt,editBtn,deleteBtn)
         });
     
          //todoDiv.appendChild(myLists);
@@ -54,15 +54,40 @@ let addFunc = (e) => {
 addBtn.addEventListener("click",addFunc);
 
 
-edFunc = (itemText) => {
+edFunc = (itemText,edId,delId) => {
+    var txtId = document.getElementById(itemText.id);
+    
+
+    var edElem = document.createElement('input');
+    edElem.type = "text";
+    edElem.value = txtId.innerHTML;
+    edElem.id =  "edi" + i++; 
+    todoDiv.appendChild(edElem);
+
+    var yesBtn =document.createElement('button');
+    yesBtn.innerHTML= 'Yes';
+    yesBtn.id = "yes" + i++;
+    todoDiv.appendChild(yesBtn);  
+
+    var noBtn =document.createElement('button');
+    noBtn.innerHTML= 'No';
+    noBtn.id = "no" + i++;
+    todoDiv.appendChild(noBtn);  
+
+   delFunc(itemText,edId,delId);
     
 }
 
 
- delFunc = (itemText) =>{
+ delFunc = (itemText,edId,delId) =>{
         //e.preventDefault();
         var delLi = document.getElementById(itemText.id);
+        var edIdpar = document.getElementById(edId.id);
+        var delIdpar = document.getElementById(delId.id);
+
         delLi.remove();
+        edIdpar.remove();
+        delIdpar.remove();
 
 }
 
