@@ -12,6 +12,7 @@ let j = 0;
 if(i==Number.MAX_SAFE_INTEGER)
     i=0;
 
+
 //Event listener to add the list when pressed on 'Enter' 
 todoTxt.addEventListener('keydown', (e) =>{
     if(e.keyCode === 13){
@@ -26,7 +27,7 @@ let addFunc = (e) => {
         e.preventDefault();
         
 
-        var listDiv = document.createElement('div');
+        var listDiv = document.createElement('div'); //A new div element will be created and all li elements are appended inside it
         listDiv.id = "li" + i++;
     
        
@@ -37,12 +38,11 @@ let addFunc = (e) => {
          }
 
           //code to add list to the front end
-         let inpTxt = document.createElement('li');
-         inpTxt.innerText = todoTxtVal;
-         listDiv.appendChild(inpTxt);
-         inpTxt.id = "txt" + i++; // remember this way of setting an attribute
-         inpTxt.dataset.index = j++;
-         
+         let inputTxt = document.createElement('li');
+         inputTxt.innerText = todoTxtVal;
+         listDiv.appendChild(inputTxt);
+         inputTxt.id = "txt" + i++; //remember this way of setting an attribute
+         inputTxt.dataset.index = j++; //data-index attribute which is used to retain the position after editing and adding
          
          
          todoTxt.value = "";
@@ -54,36 +54,31 @@ let addFunc = (e) => {
          editBtn.id = "ed" + i++;
          listDiv.appendChild(editBtn);
 
-         todoDiv.appendChild(listDiv);
-
-
-
-         editBtn.addEventListener("click",() =>{
-            edFunc(inpTxt,editBtn,deleteBtn,listDiv);
-         })
-    
          //code for creating and adding id to the delete button 
          var deleteBtn =document.createElement('button');
          deleteBtn.innerHTML= 'Delete';
          deleteBtn.id = "del" + i++;
-         listDiv.appendChild(deleteBtn);  
+         listDiv.appendChild(deleteBtn); 
 
+         todoDiv.appendChild(listDiv);//Add created div to container div
+
+         editBtn.addEventListener("click",() =>{
+            edFunc(inputTxt,editBtn,deleteBtn);
+         })
+    
         deleteBtn.addEventListener("click", () =>{
-            delFunc(inpTxt,editBtn,deleteBtn);
+            delFunc(inputTxt,editBtn,deleteBtn);
         });
         
     
 }
-addBtn.addEventListener("click",(e) =>{addFunc(e,j++)});
 
+addBtn.addEventListener("click",(e) =>{addFunc(e)});
 
-edFunc = (itemText,edId,delId,listDiv) => {
+//Function to edit with yes/No buttons
+edFunc = (itemText,edId,delId) => {
     var txtId = document.getElementById(itemText.id)//li element;
-    var index = txtId.dataset.index;
-    //var ediBtn = document.getElementById(edId.id);
-    //var delBtn = document.getElementById(delId.id);
-
-    let listDivid = document.getElementById(listDiv.id);
+    var index = txtId.dataset.index; //getting data-index attribute of li element
     
 
     var edElem = document.createElement('input');
@@ -96,45 +91,56 @@ edFunc = (itemText,edId,delId,listDiv) => {
 
     var yesBtn =document.createElement('button');
     yesBtn.innerHTML= 'Yes';
-    yesBtn.id = "yes" + i++;
 
     var noBtn =document.createElement('button');
     noBtn.innerHTML= 'No';
-    noBtn.id = "no" + i++;
 
+/***********************Inserts yes and no buttons*****/
     edElem.insertAdjacentElement("afterend",yesBtn);
     yesBtn.insertAdjacentElement("afterend",noBtn);
+/*****************************************************/
 
+/**************Removes edit and delete button******/
     edId.remove();
     delId.remove();
-
-   
-    yesBtn.addEventListener("click",(e) => {
-        var newLi = document.createElement("li");
+/*************************************************/
+  
+/************************** */
+yesFunc = () => {
+    var newLi = document.createElement("li");
         newLi.innerHTML= edElem.value;
-        newLi.dataset.index = index;
+        newLi.dataset.index = index; //assigns txts index to new li element
         newLi.id = txtId.id;
 
-        if(edElem.value.trimEnd() == "" ){//returns if text is empty
+        if(edElem.value.trimEnd() == "" ) {//returns if text is empty
             alert("Enter text"); //in future will replace this with a proper error message
             return;
          }
+
         txtId = newLi;
         yesBtn.remove();
         noBtn.remove();
         edElem.parentNode.replaceChild(newLi,edElem);
         newLi.insertAdjacentElement("afterend",edId);
         edId.insertAdjacentElement("afterend",delId);
+}
+/************************** */
 
-        /*yesBtn.parentNode.replaceChild(ediBtn,yesBtn);
-        noBtn.parentNode.replaceChild(delBtn,noBtn);*/        
-    });
 
+/********************** */
+    yesBtn.addEventListener("click",yesFunc);
+
+    edElem.addEventListener('keydown', (e) =>{
+        if(e.key === 'Enter'){
+            yesFunc();
+        }
+    })
+/********************** */
 
     noBtn.addEventListener("click",(e) => {
-        edElem.parentNode.replaceChild(txtId,edElem);
-        txtId.insertAdjacentElement("afterend",edId);
-        edId.insertAdjacentElement("afterend",delId);
+        edElem.parentNode.replaceChild(txtId,edElem); //replaces the created inputfield with original li item
+        txtId.insertAdjacentElement("afterend",edId);//adds edit button
+        edId.insertAdjacentElement("afterend",delId);//adds delete button
 
         yesBtn.remove();
         noBtn.remove();
@@ -143,9 +149,10 @@ edFunc = (itemText,edId,delId,listDiv) => {
 }
 
 
+
+//Delete function
  delFunc = (itemText,edId,delId) =>{
-        //e.preventDefault();
-       var delLi = document.getElementById(itemText.id);
+        var delLi = document.getElementById(itemText.id);
         var edIdpar = document.getElementById(edId.id);
         var delIdpar = document.getElementById(delId.id);
 
