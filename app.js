@@ -28,7 +28,8 @@ let addFunc = (e) => {
         
 
         var listDiv = document.createElement('div'); //A new div element will be created and all li elements are appended inside it
-        listDiv.id = "li" + i++;
+        //listDiv.id = "li" + i++;
+        listDiv.classList.add('todo-item'); //to add css for this
     
        
          let todoTxtVal = todoTxt.value ;
@@ -41,6 +42,7 @@ let addFunc = (e) => {
          let inputTxt = document.createElement('li');
          inputTxt.innerText = todoTxtVal;
          listDiv.appendChild(inputTxt);
+         inputTxt.classList.add('myListItem'); //to add css for this
          inputTxt.id = "txt" + i++; //remember this way of setting an attribute
          inputTxt.dataset.index = j++; //data-index attribute which is used to retain the position after editing and adding
          
@@ -52,12 +54,14 @@ let addFunc = (e) => {
          let editBtn =document.createElement('button');
          editBtn.innerHTML= 'edit';
          editBtn.id = "ed" + i++;
+         editBtn.classList.add('myListEdit');
          listDiv.appendChild(editBtn);
 
          //code for creating and adding id to the delete button 
          var deleteBtn =document.createElement('button');
          deleteBtn.innerHTML= 'Delete';
-         deleteBtn.id = "del" + i++;
+         deleteBtn.id = "del" + i++; // these ids are sent to edit and delete functions , these ids are used to detect the exact list-item
+         deleteBtn.classList.add('myListDelete');
          listDiv.appendChild(deleteBtn); 
 
          todoDiv.appendChild(listDiv);//Add created div to container div
@@ -84,16 +88,18 @@ edFunc = (itemText,edId,delId) => {
     var edElem = document.createElement('input');
     edElem.type = "text";
     edElem.value = txtId.innerHTML;
-    edElem.id =  "edi" + i++; 
+    //edElem.id =  "edi" + i++; 
     txtId.parentNode.replaceChild(edElem,txtId);
     edElem.focus();
     
 
     var yesBtn =document.createElement('button');
     yesBtn.innerHTML= 'Yes';
+    yesBtn.classList.add('myListYes');
 
     var noBtn =document.createElement('button');
     noBtn.innerHTML= 'No';
+    noBtn.classList.add('myListNo');
 
 /***********************Inserts yes and no buttons*****/
     edElem.insertAdjacentElement("afterend",yesBtn);
@@ -111,6 +117,7 @@ yesFunc = () => {
         newLi.innerHTML= edElem.value;
         newLi.dataset.index = index; //assigns txts index to new li element
         newLi.id = txtId.id;
+        newLi.classList.add('myListItem')
 
         if(edElem.value.trimEnd() == "" ) {//returns if text is empty
             alert("Enter text"); //in future will replace this with a proper error message

@@ -1,0 +1,193 @@
+/**
+1 change units for yes no edit delete to rem, em
+2 solve the buttons coming on top of text
+3 make it more lookable
+4 store the list in localstorage and retain them even when refreshed
+5 change css remove unwanted css
+6 
+
+**/
+
+/* Apply general styles to the body, like background color and font-family */
+body {
+    background-color: #FFDAB9;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style the todo list container */
+  .todoList {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  /* Style the todo list header */
+  .todoList h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+  
+  /* Style the todo list form */
+  .todo-Text {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    margin: 0 10px 0 0;
+    padding: 10px;
+    width: 70%;
+  }
+  
+  #addBtn {
+    background-color: #333;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 25%;
+  }
+  
+  /* Style the todo list items */
+    #myList {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .myList li {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+  }
+  
+  .myList li.done {
+    background-color: #ccc;
+  }
+  
+  .myList li .deleteBtn {
+    background-color: #f44336;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    height: 25px;
+    line-height: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 25px;
+  }
+/*styles for div of each item*/
+  .todo-item {
+    display: block;
+    margin-right: 10px; /* adjust as needed */
+    margin-bottom: 25px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+     padding: 10px;
+    margin-bottom: 5px;
+
+  }
+  
+
+  /* Styles for list item */
+  .myListItem {
+    
+    display: inline;
+    overflow: auto;
+     
+    border-radius: 3px;
+    color: #333;
+    font-size: 16px;
+    position: relative;
+
+    
+   
+  }
+
+  
+  /* Styles for edit button */
+  .myListEdit {
+    position: absolute; /* position absolutely relative to the list item */
+  right: 10px; /* align to the right side with some margin */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-right: 5px;
+    margin-left: 8rem;
+    cursor: pointer;
+    float:right;
+  }
+  
+  /* Styles for delete button */
+  .myListDelete {
+    position: absolute; /* position absolutely relative to the list item */
+  right: 70px; /* align to the right side with some margin */
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-right: 5px;
+    margin-left: 10rem;
+    cursor: pointer;
+    float: right;
+     
+
+  }
+
+  .myListYes {
+    position: absolute; /* position absolutely relative to the list item */
+  right: 10px; /* align to the right side with some margin */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-right: 5px;
+    margin-left: 8rem;
+    cursor: pointer;
+    float:right;
+  }
+
+  .myListNo {
+    position: absolute; /* position absolutely relative to the list item */
+  right: 70px; /* align to the right side with some margin */
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin-right: 5px;
+    margin-left: 10rem;
+    cursor: pointer;
+    float: right;
+     
+
+  }
+  
+  
