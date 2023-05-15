@@ -39,12 +39,24 @@ let addFunc = (e) => {
          }
 
           //code to add list to the front end
+         const checkbox = document.createElement('input');
+         checkbox.type = 'checkbox';
          let inputTxt = document.createElement('li');
          inputTxt.innerText = todoTxtVal;
-         listDiv.appendChild(inputTxt);
+         inputTxt.appendChild(checkbox);
+
          inputTxt.classList.add('myListItem'); //to add css for this
          inputTxt.id = "txt" + i++; //remember this way of setting an attribute
          inputTxt.dataset.index = j++; //data-index attribute which is used to retain the position after editing and adding
+         listDiv.appendChild(inputTxt);
+         
+       
+         // Add event listener to handle checkbox state changes
+         checkbox.addEventListener('change',() =>{ 
+            CheckboxChange(inputTxt);
+        });
+       
+         // Append the checkbox to the list item
          
          
          todoTxt.value = "";
@@ -52,16 +64,20 @@ let addFunc = (e) => {
     
          //code for creating and adding id to the edit button 
          let editBtn =document.createElement('button');
-         editBtn.innerHTML= 'edit';
+         var editIcon = document.createElement('i');
+         editIcon.classList.add('far','fa-edit');
          editBtn.id = "ed" + i++;
-         editBtn.classList.add('myListEdit');
+         editBtn.classList.add('myListEdit','editIcon');
+         editBtn.appendChild(editIcon);
          listDiv.appendChild(editBtn);
 
          //code for creating and adding id to the delete button 
          var deleteBtn =document.createElement('button');
-         deleteBtn.innerHTML= 'Delete';
+         var deleteIcon = document.createElement('i');
+         deleteIcon.classList.add('fas', 'fa-trash-alt');
          deleteBtn.id = "del" + i++; // these ids are sent to edit and delete functions , these ids are used to detect the exact list-item
-         deleteBtn.classList.add('myListDelete');
+         deleteBtn.classList.add('myListDelete','deleteIcon');
+         deleteBtn.appendChild(deleteIcon);
          listDiv.appendChild(deleteBtn); 
 
          todoDiv.appendChild(listDiv);//Add created div to container div
@@ -71,13 +87,23 @@ let addFunc = (e) => {
          })
     
         deleteBtn.addEventListener("click", () =>{
-            delFunc(inputTxt,editBtn,deleteBtn);
+            delFunc(inputTxt,editBtn,deleteBtn,listDiv);
         });
         
     
 }
 
 addBtn.addEventListener("click",(e) =>{addFunc(e)});
+
+CheckboxChange = (e) =>{
+    const checkbox = e.target;
+    const liElem = checkbox.parentNode;
+
+    if(checkbox.checked){
+
+    }
+
+}
 
 //Function to edit with yes/No buttons
 edFunc = (itemText,edId,delId) => {
@@ -91,15 +117,20 @@ edFunc = (itemText,edId,delId) => {
     //edElem.id =  "edi" + i++; 
     txtId.parentNode.replaceChild(edElem,txtId);
     edElem.focus();
+    edElem.classList.add('myEditedInput')
     
 
     var yesBtn =document.createElement('button');
-    yesBtn.innerHTML= 'Yes';
-    yesBtn.classList.add('myListYes');
+    var yesIcon = document.createElement('i');
+    yesIcon.classList.add('fas', 'fa-check');
+    yesBtn.appendChild(yesIcon);
+    yesBtn.classList.add('myListYes','yesIcon');
 
     var noBtn =document.createElement('button');
-    noBtn.innerHTML= 'No';
-    noBtn.classList.add('myListNo');
+    var noIcon = document.createElement('i');
+    noIcon.classList.add('fas','fa-times')
+    noBtn.appendChild(noIcon);
+    noBtn.classList.add('myListNo','noIcon');
 
 /***********************Inserts yes and no buttons*****/
     edElem.insertAdjacentElement("afterend",yesBtn);
@@ -158,12 +189,13 @@ yesFunc = () => {
 
 
 //Delete function
- delFunc = (itemText,edId,delId) =>{
+ delFunc = (itemText,edId,delId,ldiv) =>{
         var delLi = document.getElementById(itemText.id);
         var edIdpar = document.getElementById(edId.id);
         var delIdpar = document.getElementById(delId.id);
 
         delLi.remove();
+        ldiv.classList.remove('todo-item');
         edIdpar.remove();
         delIdpar.remove();
 
