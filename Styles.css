@@ -1,10 +1,12 @@
 /**
-1 change units for yes no edit delete to rem, em
-2 solve the buttons coming on top of text
 3 make it more lookable
 4 store the list in localstorage and retain them even when refreshed
-5 change css remove unwanted css
-6 
+5 add checkbox functionality
+6 bring buttons closer when clicked on edit
+8 reduce size of the input 
+9 Additional: A welcome animation, dark mode
+10 replace alert with error messege
+11 change background color
 
 **/
 
@@ -55,6 +57,7 @@ body {
     border: 1px solid #ddd;
      padding: 10px;
     margin-bottom: 5px;
+    transition: all 0.2s ease-in ;
 
   }
   
@@ -74,7 +77,11 @@ body {
    
   }
   .myListItem input[type="checkbox"] {
-    order: -1;
+    order: -2;
+    accent-color: #484141;
+  }
+  .myListItem input[type="checkbox"] :checked {
+    background-color: darkgray;
   }
 
   
@@ -206,6 +213,16 @@ body {
     display: block;
     text-align: center;
     line-height: 20px;
+  }
+
+
+  .checkBoxstrike{
+
+    text-decoration: line-through;
+    text-decoration-skip-ink: none;
+    text-decoration-style: solid;
+    text-decoration-thickness: 2px;
+    opacity: 0.5;
   }
   
   

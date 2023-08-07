@@ -12,7 +12,7 @@
 
     if (target.classList.contains('edit')) {
       const li = target.parentNode;
-      const index = li.dataset.index;
+      const index = li.dataset.index;//impotatant line
       const text = li.textContent.trim();
 
       // create an input element with the current text as its value

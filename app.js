@@ -32,7 +32,7 @@ let addFunc = (e) => {
         listDiv.classList.add('todo-item'); //to add css for this
     
        
-         let todoTxtVal = todoTxt.value ;
+         let todoTxtVal = todoTxt.value;
          if(todoTxt.value.trimEnd()== "" ){//returns if text is empty
             alert("Enter text"); //in future will replace this with a proper error message
             return;
@@ -52,9 +52,7 @@ let addFunc = (e) => {
          
        
          // Add event listener to handle checkbox state changes
-         checkbox.addEventListener('change',() =>{ 
-            CheckboxChange(inputTxt);
-        });
+         checkbox.addEventListener('change',CheckboxChange);
        
          // Append the checkbox to the list item
          
@@ -98,8 +96,14 @@ addBtn.addEventListener("click",(e) =>{addFunc(e)});
 CheckboxChange = (e) =>{
     const checkbox = e.target;
     const liElem = checkbox.parentNode;
+    const liParent = liElem.parentNode;
 
     if(checkbox.checked){
+        liParent.classList.add('checkBoxstrike');
+
+    }
+    else{
+        liParent.classList.remove('checkBoxstrike');
 
     }
 
@@ -113,7 +117,7 @@ edFunc = (itemText,edId,delId) => {
 
     var edElem = document.createElement('input');
     edElem.type = "text";
-    edElem.value = txtId.innerHTML;
+    edElem.value = txtId.innerText;
     //edElem.id =  "edi" + i++; 
     txtId.parentNode.replaceChild(edElem,txtId);
     edElem.focus();
@@ -148,6 +152,7 @@ yesFunc = () => {
         newLi.innerHTML= edElem.value;
         newLi.dataset.index = index; //assigns txts index to new li element
         newLi.id = txtId.id;
+        newLi.appendChild(txtId.lastChild);
         newLi.classList.add('myListItem')
 
         if(edElem.value.trimEnd() == "" ) {//returns if text is empty
