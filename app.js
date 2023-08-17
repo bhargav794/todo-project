@@ -22,7 +22,7 @@ todoTxt.addEventListener('keydown', (e) =>{
 })
 
 //Function which adds the todo list to the front end
-let addFunc = (e) => {
+addFunc = (e) => {
     
         e.preventDefault();
         
@@ -47,7 +47,7 @@ let addFunc = (e) => {
 
          inputTxt.classList.add('myListItem'); //to add css for this
          inputTxt.id = "txt" + i++; //remember this way of setting an attribute
-         inputTxt.dataset.index = j++; //data-index attribute which is used to retain the position after editing and adding
+        // inputTxt.dataset.index = j++; //data-index attribute which is used to retain the position after editing and adding
          listDiv.appendChild(inputTxt);
          
        
@@ -112,13 +112,11 @@ CheckboxChange = (e) =>{
 //Function to edit with yes/No buttons
 edFunc = (itemText,edId,delId) => {
     var txtId = document.getElementById(itemText.id)//li element;
-    var index = txtId.dataset.index; //getting data-index attribute of li element
     
 
     var edElem = document.createElement('input');
     edElem.type = "text";
     edElem.value = txtId.innerText;
-    //edElem.id =  "edi" + i++; 
     txtId.parentNode.replaceChild(edElem,txtId);
     edElem.focus();
     edElem.classList.add('myEditedInput')
@@ -148,17 +146,18 @@ edFunc = (itemText,edId,delId) => {
   
 /************************** */
 yesFunc = () => {
+    if(edElem.value.trimEnd() == "" ) {//returns if text is empty
+        alert("Enter text"); //in future will replace this with a proper error message
+        edElem.focus();
+         return this.edFunc;
+     }
     var newLi = document.createElement("li");
         newLi.innerHTML= edElem.value;
-        newLi.dataset.index = index; //assigns txts index to new li element
         newLi.id = txtId.id;
         newLi.appendChild(txtId.lastChild);
         newLi.classList.add('myListItem')
 
-        if(edElem.value.trimEnd() == "" ) {//returns if text is empty
-            alert("Enter text"); //in future will replace this with a proper error message
-            return;
-         }
+        
 
         txtId = newLi;
         yesBtn.remove();
@@ -174,9 +173,7 @@ yesFunc = () => {
     yesBtn.addEventListener("click",yesFunc);
 
     edElem.addEventListener('keydown', (e) =>{
-        if(e.key === 'Enter'){
-            yesFunc();
-        }
+        if(e.key === 'Enter') yesFunc();
     })
 /********************** */
 
@@ -184,11 +181,11 @@ yesFunc = () => {
         edElem.parentNode.replaceChild(txtId,edElem); //replaces the created inputfield with original li item
         txtId.insertAdjacentElement("afterend",edId);//adds edit button
         edId.insertAdjacentElement("afterend",delId);//adds delete button
-
+        console.log(this);
         yesBtn.remove();
         noBtn.remove();
-    })
-    
+    })  
+
 }
 
 
